@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="5.0" group="ajax" method="upgrade">
+    <name>Ajax - YouTube Playlist</name>
+    <author>Your Name</author>
+    <creationDate>2025-04-07</creationDate>
+    <copyright>(C) 2025 Your Name. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.0</version>
+    <description>Fetches YouTube playlist data securely via AJAX</description>
+
+    <files>
+        <folder plugin="youtube_playlist">src</folder>
+    </files>
+
+    <config>
+        <!-- No configuration needed -->
+    </config>
+</extension>

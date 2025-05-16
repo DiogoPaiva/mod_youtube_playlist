@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>YouTube Playlist</name>
+    <author>Your Name</author>
+    <creationDate>2025-04-07</creationDate>
+    <copyright>(C) 2025 Your Name. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.0</version>
+    <description>Displays a YouTube playlist using a secure AJAX proxy</description>
+    <namespace path="src">My\Module\YoutubePlaylist</namespace>
+    <files>
+        <folder module="youtube_playlist">services</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+        <folder>plugins</folder>
+    </files>
+</extension>
