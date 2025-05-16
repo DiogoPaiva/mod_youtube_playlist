@@ -7,11 +7,21 @@
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <version>1.0.0</version>
     <description>Displays a YouTube playlist using a secure AJAX proxy</description>
+
     <namespace path="src">My\Module\YoutubePlaylist</namespace>
+
     <files>
         <folder module="youtube_playlist">services</folder>
         <folder>src</folder>
         <folder>tmpl</folder>
-        <folder>plugins</folder>
     </files>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="playlist_id" type="text" label="Playlist ID" description="Enter your YouTube Playlist ID"/>
+                <field name="max_results" type="text" label="Max Results" description="Maximum number of videos to show" default="5"/>
+            </fieldset>
+        </fields>
+    </config>
 </extension>

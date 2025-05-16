@@ -1,7 +1,7 @@
 <?php
 namespace My\Module\YoutubePlaylist\Site\Module;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ModuleHelper;
 
