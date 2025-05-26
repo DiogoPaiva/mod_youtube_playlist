@@ -1,15 +1,16 @@
 <?php
+
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Extension\Service\Provider\Module as ModuleServiceProvider;
-use Joomla\CMS\Extension\Service\Provider\ModuleDispatcherFactory as ModuleDispatcherFactoryServiceProvider;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use ModYoutubePlaylist\Module;
 
-return new class () implements ServiceProviderInterface {
-    public function register(Container $container): void
+return new class implements ServiceProviderInterface {
+    public function register(Container $container)
     {
-        $container->registerServiceProvider(new ModuleDispatcherFactoryServiceProvider('\\My\\Module\\YoutubePlaylist'));
-        $container->registerServiceProvider(new ModuleServiceProvider());
+        $container->set(Module::class, function () {
+            return new Module();
+        });
     }
 };

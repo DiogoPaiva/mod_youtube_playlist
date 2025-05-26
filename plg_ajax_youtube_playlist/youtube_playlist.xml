@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" version="5.0" group="ajax" method="upgrade">
-    <name>Ajax - YouTube Playlist</name>
-    <author>Your Name</author>
-    <creationDate>2025-04-07</creationDate>
-    <copyright>(C) 2025 Your Name. All rights reserved.</copyright>
-    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+<extension type="plugin" group="ajax" method="upgrade" version="5.0">
+    <name>plg_ajax_youtube_playlist</name>
+    <author>O Seu Nome</author>
     <version>1.0.0</version>
-    <description>Fetches YouTube playlist data securely via AJAX</description>
-
+    <description>Plugin AJAX para recuperar vídeos de uma YouTube Playlist</description>
+    <namespace path="src">Joomla\Plugin\Ajax\YoutubePlaylist</namespace>
+    <services>
+        <service src="services/provider.php" />
+    </services>
     <files>
-        <folder plugin="youtube_playlist">src</folder>
+        <folder plugin="youtube_playlist">services</folder>
+        <folder>src</folder>
     </files>
 
-    <config>
-        <!-- No configuration needed -->
-    </config>
+    <languages>
+        <language tag="en-GB">language/en-GB/plg_ajax_youtube_playlist.ini</language>
+        <language tag="en-GB">language/en-GB/plg_ajax_youtube_playlist.sys.ini</language>
+    </languages>
 </extension>

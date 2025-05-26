@@ -1,27 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" client="site" method="upgrade">
-    <name>YouTube Playlist</name>
-    <author>Your Name</author>
-    <creationDate>2025-04-07</creationDate>
-    <copyright>(C) 2025 Your Name. All rights reserved.</copyright>
-    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.0.0</version>
-    <description>Displays a YouTube playlist using a secure AJAX proxy</description>
-
-    <namespace path="src">My\Module\YoutubePlaylist</namespace>
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="5.0" client="site" method="upgrade">
+    <name>mod_youtube_playlist</name>
+    <title>MOD_YOUTUBE_PLAYLIST</title>
+    <description>MOD_YOUTUBE_PLAYLIST_DESC</description>
+    <namespace>ModYoutubePlaylist</namespace>
 
     <files>
-        <folder module="youtube_playlist">services</folder>
+        <filename module="mod_youtube_playlist">mod_youtube_playlist.php</filename>
         <folder>src</folder>
         <folder>tmpl</folder>
+        <folder>services</folder>
+        <folder>helper</folder>
     </files>
+
+    <languages>
+        <language tag="pt-PT">language/pt-PT/mod_youtube_playlist.ini</language>
+        <language tag="pt-PT">language/pt-PT/mod_youtube_playlist.sys.ini</language>
+        <language tag="en-GB">language/en-GB/mod_youtube_playlist.ini</language>
+        <language tag="en-GB">language/en-GB/mod_youtube_playlist.sys.ini</language>
+    </languages>
 
     <config>
         <fields name="params">
             <fieldset name="basic">
-                <field name="playlist_id" type="text" label="Playlist ID" description="Enter your YouTube Playlist ID"/>
-                <field name="max_results" type="text" label="Max Results" description="Maximum number of videos to show" default="5"/>
+                <field
+                    name="playlistId"
+                    type="text"
+                    label="Playlist ID"
+                    description="ID da playlist do YouTube"
+                    required="true"
+                />
+                <field
+                    name="maxResults"
+                    type="number"
+                    default="5"
+                    label="Número Máximo de Vídeos"
+                    description="Quantidade máxima de vídeos a apresentar"
+                />
             </fieldset>
         </fields>
     </config>
+
+    <services>
+        <service src="services/provider.php" />
+    </services>
 </extension>
