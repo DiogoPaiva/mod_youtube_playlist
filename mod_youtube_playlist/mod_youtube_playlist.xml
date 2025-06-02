@@ -1,47 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="5.0" client="site" method="upgrade">
-    <name>mod_youtube_playlist</name>
-    <title>MOD_YOUTUBE_PLAYLIST</title>
-    <description>MOD_YOUTUBE_PLAYLIST_DESC</description>
-    <namespace>ModYoutubePlaylist</namespace>
+    <name>MOD_YOUTUBE</name>
+    <author>Seu Nome</author>
+    <creationDate>2025-06</creationDate>
+    <copyright>Copyright (C) 2025</copyright>
+    <license>GNU General Public License version 2</license>
+    <authorEmail>seu@email.com</authorEmail>
+    <version>1.0.0</version>
+     <title>MOD_YOUTUBE_PLAYLIST</title>
+    <description>MOD_YOUTUBE_DESCRIPTION</description>
+     <namespace>ModYoutubePlaylist</namespace>
 
     <files>
         <filename module="mod_youtube_playlist">mod_youtube_playlist.php</filename>
-        <folder>src</folder>
         <folder>tmpl</folder>
-        <folder>services</folder>
-        <folder>helper</folder>
     </files>
-
-    <languages>
-        <language tag="pt-PT">language/pt-PT/mod_youtube_playlist.ini</language>
-        <language tag="pt-PT">language/pt-PT/mod_youtube_playlist.sys.ini</language>
-        <language tag="en-GB">language/en-GB/mod_youtube_playlist.ini</language>
-        <language tag="en-GB">language/en-GB/mod_youtube_playlist.sys.ini</language>
+    
+    <languages folder="language">
+        <language tag="en-GB">en-GB/mod_youtube.ini</language>
+        <language tag="pt-PT">pt-PT/mod_youtube.ini</language>
     </languages>
-
+    
     <config>
         <fields name="params">
-            <fieldset name="basic">
+            <fieldset name="basic" label="MOD_YOUTUBE_FIELDSET_BASIC">
                 <field
-                    name="playlistId"
+                    name="playlist_id"
                     type="text"
-                    label="Playlist ID"
-                    description="ID da playlist do YouTube"
+                    label="MOD_YOUTUBE_PLAYLIST_ID_LABEL"
+                    description="MOD_YOUTUBE_PLAYLIST_ID_DESC"
                     required="true"
-                />
+                    filter="string"
+                    size="50" />
+                
                 <field
-                    name="maxResults"
-                    type="number"
-                    default="5"
-                    label="Número Máximo de Vídeos"
-                    description="Quantidade máxima de vídeos a apresentar"
-                />
+                    name="max_results"
+                    type="integer"
+                    label="MOD_YOUTUBE_MAX_RESULTS_LABEL"
+                    description="MOD_YOUTUBE_MAX_RESULTS_DESC"
+                    default="10"
+                    first="1"
+                    last="50"
+                    step="1" />
+                
+                <field
+                    name="show_description"
+                    type="radio"
+                    label="MOD_YOUTUBE_SHOW_DESCRIPTION_LABEL"
+                    description="MOD_YOUTUBE_SHOW_DESCRIPTION_DESC"
+                    default="1">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+                <field
+                    name="thumbnail_size"
+                    type="list"
+                    label="MOD_YOUTUBE_THUMBNAIL_SIZE_LABEL"
+                    description="MOD_YOUTUBE_THUMBNAIL_SIZE_DESC"
+                    default="medium">
+                    <option value="default">MOD_YOUTUBE_THUMBNAIL_DEFAULT</option>
+                    <option value="medium">MOD_YOUTUBE_THUMBNAIL_MEDIUM</option>
+                    <option value="high">MOD_YOUTUBE_THUMBNAIL_HIGH</option>
+                </field>
+                
+                <field
+                    name="layout_type"
+                    type="list"
+                    label="MOD_YOUTUBE_LAYOUT_TYPE_LABEL"
+                    description="MOD_YOUTUBE_LAYOUT_TYPE_DESC"
+                    default="list">
+                    <option value="list">MOD_YOUTUBE_LAYOUT_LIST</option>
+                    <option value="grid">MOD_YOUTUBE_LAYOUT_GRID</option>
+                </field>
+            </fieldset>
+            
+            <fieldset name="advanced" label="MOD_YOUTUBE_FIELDSET_ADVANCED">
+                <field
+                    name="cache_time"
+                    type="integer"
+                    label="MOD_YOUTUBE_CACHE_TIME_LABEL"
+                    description="MOD_YOUTUBE_CACHE_TIME_DESC"
+                    default="3600"
+                    first="0"
+                    step="60" />
+                
+                <field
+                    name="moduleclass_sfx"
+                    type="textarea"
+                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                    description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+                    rows="3" />
             </fieldset>
         </fields>
     </config>
-
-    <services>
-        <service src="services/provider.php" />
-    </services>
 </extension>
