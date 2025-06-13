@@ -48,6 +48,17 @@ class ModYoutubeHelper
         return $videos;
     }
 
+    private static function extractJsonBody(string $rawResponse): string
+    {
+        // Split on first "\r\n\r\n"
+        if (preg_match('/\r\n\r\n/', $rawResponse, $matches, PREG_OFFSET_CAPTURE)) {
+            return substr($rawResponse, $matches[0][1] + 4);
+        }
+
+        // Fallback: return full response if no header separator found
+        return $rawResponse;
+    }
+
     /**
      * Busca dados directamente do YouTube via plugin
      */
@@ -82,7 +93,14 @@ class ModYoutubeHelper
                 return ['error' => 'Erro ao comunicar com YouTube API'];
             }
 
-            $data = json_decode($response, true);
+            // Extract only the JSON body by removing headers
+            $body = self::extractJsonBody($response);
+
+            if (empty($body)) {
+                return ['error' => 'Resposta vazia ou mal formada'];
+            }
+
+            $data = json_decode($body, true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 return ['error' => 'Resposta inválida da API'];
@@ -114,6 +132,7 @@ class ModYoutubeHelper
     /**
      * Faz pedido HTTP
      */
+
     private static function makeHttpRequest(string $url): string|false
     {
         if (function_exists('curl_init')) {
@@ -122,7 +141,8 @@ class ModYoutubeHelper
             $context = stream_context_create([
                 'http' => [
                     'timeout' => 30,
-                    'user_agent' => 'Joomla YouTube Module/1.0'
+                    'user_agent' => 'Joomla YouTube Module/1.0',
+                    'header' => "Referer: http://framemusic.org\r\n"
                 ]
             ]);
 
@@ -138,23 +158,34 @@ class ModYoutubeHelper
     private static function makeCurlRequest(string $url): string|false
     {
         $ch = curl_init();
-
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $url,
+        $options = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_USERAGENT => 'Joomla YouTube Module/1.0',
             CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_MAXREDIRS => 3
-        ]);
+            CURLOPT_MAXREDIRS => 3,
+            CURLOPT_REFERER => 'http://framemusic.org',
+            CURLOPT_HEADER => true, // Include headers in response
+        ];
+
+        curl_setopt_array($ch, $options);
+        curl_setopt($ch, CURLOPT_URL, $url);
 
         $response = curl_exec($ch);
+
+        if ($response === false) {
+            $error = curl_error($ch);
+            print_r("<pre>cURL ERROR: " . $error . "</pre>");
+        }
+
+        // ⚠️ Important: Get info **before** closing!
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        // Now we can safely close the cURL handle
         curl_close($ch);
 
-        if ($httpCode !== 200) {
+        if ($httpCode !== 200 || $response === false) {
             return false;
         }
 
