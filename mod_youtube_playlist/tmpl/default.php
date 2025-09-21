@@ -145,7 +145,7 @@ $document->addStyleDeclaration('
             <div class="mod-youtube-video">
                 <?php if (!empty($video['thumbnail'])): ?>
                     <div class="mod-youtube-thumbnail">
-                        <a href="<?php echo $videoUrl; ?>" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.youtube.com/watch?v=<?php echo urlencode($video['id']); ?>" class="lightbox-trigger">
                             <img src="<?php echo htmlspecialchars($video['thumbnail']); ?>"
                                 alt="<?php echo htmlspecialchars($video['title']); ?>" loading="lazy">
                         </a>
@@ -154,7 +154,8 @@ $document->addStyleDeclaration('
 
                 <div class="mod-youtube-content">
                     <div class="mod-youtube-title">
-                        <a href="<?php echo $videoUrl; ?>" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.youtube.com/watch?v=<?php echo urlencode($video['id']); ?>"
+                            class="lightbox-trigger">
                             <?php echo htmlspecialchars($video['title']); ?>
                         </a>
                     </div>
@@ -179,6 +180,13 @@ $document->addStyleDeclaration('
                     </div>
                 </div>
             </div>
+
         <?php endforeach; ?>
     <?php endif; ?>
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <img id="lightbox-image" src="" alt="" />
+        </div>
+        <span class="lightbox-close">&times;</span>
+    </div>
 </div>
