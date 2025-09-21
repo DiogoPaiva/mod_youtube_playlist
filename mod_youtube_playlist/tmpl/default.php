@@ -7,105 +7,13 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
 
 // Adiciona CSS
-$document->addStyleDeclaration('
-.mod-youtube-container {
-    margin: 0;
-    padding: 0;
-}
-
-.mod-youtube-error {
-    padding: 10px;
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    margin: 10px 0;
-}
-
-.mod-youtube-video {
-    display: flex;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: box-shadow 0.3s ease;
-}
-
-.mod-youtube-video:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.mod-youtube-thumbnail {
-    flex-shrink: 0;
-    margin-right: 15px;
-}
-
-.mod-youtube-thumbnail img {
-    max-width: 120px;
-    height: auto;
-    border-radius: 4px;
-    display: block;
-}
-
-.mod-youtube-content {
-    flex: 1;
-}
-
-.mod-youtube-title {
-    font-weight: bold;
-    margin-bottom: 8px;
-    line-height: 1.3;
-}
-
-.mod-youtube-title a {
-    color: #333;
-    text-decoration: none;
-}
-
-.mod-youtube-title a:hover {
-    color: #0066cc;
-    text-decoration: underline;
-}
-
-.mod-youtube-description {
-    color: #666;
-    font-size: 0.9em;
-    line-height: 1.4;
-    margin-bottom: 8px;
-}
-
-.mod-youtube-meta {
-    font-size: 0.8em;
-    color: #999;
-}
-
-.mod-youtube-no-videos {
-    text-align: center;
-    padding: 20px;
-    color: #666;
-    font-style: italic;
-}
-
-@media (max-width: 768px) {
-    .mod-youtube-video {
-        flex-direction: column;
-    }
-    
-    .mod-youtube-thumbnail {
-        margin-right: 0;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-    
-    .mod-youtube-thumbnail img {
-        max-width: 200px;
-    }
-}
-');
+$document->addScript(Uri::root() . 'modules/mod_youtube_playlist/tmpl/lightbox.js');
+$document->addStyleSheet(Uri::root() . 'modules/mod_youtube_playlist/tmpl/mod_youtube.css');
 ?>
 
 <div id="mod-youtube-<?php echo $moduleId; ?>" class="mod-youtube-container">
@@ -183,7 +91,7 @@ $document->addStyleDeclaration('
 
         <?php endforeach; ?>
     <?php endif; ?>
-    <div id="lightbox" class="lightbox">
+    <div id="lightbox" class="lightbox-overlay">
         <div class="lightbox-content">
             <img id="lightbox-image" src="" alt="" />
         </div>
